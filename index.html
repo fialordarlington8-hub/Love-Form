@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- REQUIRED for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jedy, Be My Valentine ❤️</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            max-width: 420px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #e63946;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.05rem;
+            color: #444;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            width: 80%;
+            max-width: 260px;
+        }
+
+        #yesBtn {
+            background-color: #e63946;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #ccc;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .heart {
+            position: fixed;
+            top: -20px;
+            font-size: 22px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box" id="card">
+    <h1>Hey Jedy 💕</h1>
+    <p>Will you be my Valentine? 💌</p>
+
+    <button id="yesBtn" onclick="sayYes()">Yes ❤️</button>
+    <button id="noBtn" onclick="runAway()">No 😅</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+    const messages = [
+        "Are you sure? I already planned our love story 😌",
+        "What if I promise unlimited hugs? 🤗",
+        "Think carefully… chocolate is involved 🍫",
+        "Don’t make me beg dramatically 😭😂",
+        "Okay okay… I’ll wait right here 🥺"
+    ];
+
+    let count = 0;
+
+    function sayYes() {
+        document.getElementById("card").innerHTML = `
+            <h1>YAYYY 💖</h1>
+            <p>
+                Jedy, you make my world brighter just by being in it.
+                Loving you is my favorite thing to do.
+            </p>
+            <p>Happy Valentine’s Day, my love ❤️</p>
+        `;
+        startHeartRain();
+    }
+
+    function runAway() {
+        const noBtn = document.getElementById("noBtn");
+        const box = document.querySelector(".box");
+
+        const maxX = box.clientWidth - noBtn.clientWidth - 10;
+        const maxY = box.clientHeight - noBtn.clientHeight - 10;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        noBtn.style.transform = "none";
+
+        document.getElementById("message").textContent =
+            messages[count % messages.length];
+
+        count++;
+    }
+
+    function startHeartRain() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.textContent = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }, 250);
+    }
+</script>
+
+</body>
+</html>
